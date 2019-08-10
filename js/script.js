@@ -71,7 +71,7 @@ function appendPageLinks (list, page) {
       
    }
    ul.addEventListener ('click', (e) => {
-      
+      const pageNum = e.target.textContent;
       for (let i = 0; i < ul.children.length; i++) {
          const a = li[i].firstElementChild;
          if (a.className = true) {
@@ -79,6 +79,7 @@ function appendPageLinks (list, page) {
          }      
       }
       e.target.className = 'active';
+      showPage (students, pageNum);
    });
 }
 
