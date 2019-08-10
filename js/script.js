@@ -47,7 +47,7 @@ function showPage(list, page) {
    }
    
 }
-showPage(students, 1);
+
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
@@ -58,6 +58,7 @@ function appendPageLinks (list, page) {
    div.className = 'pagination';
    pageDiv.appendChild(div);
    const ul = document.createElement('ul');
+   const li = ul.children;
    div.appendChild(ul);
    for (let i = 0; i < list.length / page; i++) {
       const li = document.createElement('li');
@@ -66,10 +67,21 @@ function appendPageLinks (list, page) {
       li.appendChild(a);
       a.href = '#';
       a.textContent = i + 1;
-      aNum = a.textContent;     
+      aNum = a.textContent; 
+      
    }
+   ul.addEventListener ('click', (e) => {
+      
+      for (let i = 0; i < ul.children.length; i++) {
+         const a = li[i].firstElementChild;
+         if (a.className = true) {
+            a.className = null;
+         }      
+      }
+      e.target.className = 'active';
+   });
 }
 
-// appendPageLinks(students, studentsPerPage);
+appendPageLinks(students, studentsPerPage);
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
