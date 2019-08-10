@@ -44,10 +44,10 @@ function showPage(list, page) {
       } else {
          list[i].style.display = 'none';
       }
-   }
-   
+   }   
 }
 
+showPage(students, 1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
