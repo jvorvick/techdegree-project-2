@@ -68,3 +68,16 @@ function appendPageLinks (list, page) {
 // appendPageLinks function is called to display the proper number of students on the currently active page
 
 appendPageLinks(students, studentsPerPage);
+
+// Search bar
+
+const pageHeader = document.querySelector('.page-header');
+const searchDiv = document.createElement('div');
+   searchDiv.className = 'student-search';
+const input = document.createElement('input');
+   input.placeholder = 'Search for students...';
+const button = document.createElement('button');
+   button.textContent = 'Search';
+pageHeader.appendChild(searchDiv);
+searchDiv.appendChild(input);
+searchDiv.appendChild(button);
