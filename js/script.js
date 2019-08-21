@@ -1,6 +1,7 @@
 // Global variables to be interacted with through functions
 
 const pageDiv = document.querySelector('.page');
+const Students = document.querySelector('.student-list');
 const students = document.querySelector('.student-list').children;
 const studentsPerPage = 10;
 
@@ -49,8 +50,7 @@ function appendPageLinks (list, page) {
       li.appendChild(a);
       a.href = '#';
       a.textContent = i + 1;
-      aNum = a.textContent; 
-      
+      aNum = a.textContent;   
    }
    ul.addEventListener ('click', (e) => {
       const pageNum = e.target.textContent;
@@ -61,7 +61,11 @@ function appendPageLinks (list, page) {
          }      
       }
       e.target.className = 'active';
-      showPage (students, pageNum);
+      if (searchResults.length === 0) {
+         showPage (students, pageNum);
+      } else {
+         showPage (searchResults, pageNum);
+      }
    });
 }
 
@@ -74,10 +78,47 @@ appendPageLinks(students, studentsPerPage);
 const pageHeader = document.querySelector('.page-header');
 const searchDiv = document.createElement('div');
    searchDiv.className = 'student-search';
-const input = document.createElement('input');
-   input.placeholder = 'Search for students...';
-const button = document.createElement('button');
-   button.textContent = 'Search';
+const search = document.createElement('input');
+   search.placeholder = 'Search for students...';
+const submit = document.createElement('button');
+   submit.textContent = 'Search';
 pageHeader.appendChild(searchDiv);
-searchDiv.appendChild(input);
-searchDiv.appendChild(button);
+searchDiv.appendChild(search);
+searchDiv.appendChild(submit);
+
+const searchResults = [];
+
+// Search bar functionality
+
+function performSearch (searchInput, names) {
+   let pagination = document.getElementsByClassName('pagination');
+   pageDiv.removeChild(pagination[0]);
+   while (searchResults.length > 0) {
+      searchResults.pop();
+   }
+   if (searchInput.value.length !== 0) {
+      for (let i = 0; i < names.length; i ++) { 
+         let fullName = names[i].querySelector('h3');    
+         if (fullName.textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
+            names[i].style.display = 'block';
+            searchResults.push(names[i]);
+         } else {
+            names[i].style.display = 'none';
+         }  
+      }
+      appendPageLinks(searchResults, studentsPerPage);
+      showPage(searchResults, 1);
+   } else {
+      appendPageLinks (students, studentsPerPage);
+      showPage (students, 1);
+   } 
+}
+
+submit.addEventListener('click', (e) => {
+   e.preventDefault();
+   performSearch (search, students);
+});
+
+search.addEventListener('keyup', () => {
+   performSearch (search, students);
+});
