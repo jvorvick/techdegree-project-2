@@ -95,6 +95,9 @@ searchDiv.appendChild(submit);
 // An empty array is declared to store the list items that match a user's search.
 
 const searchResults = [];
+const noResults = document.createElement('div');
+   noResults.className = 'no-results';
+   noResults.innerHTML = '<h1>' + 'No Results' + '</h1>';
 
 // Search bar functionality
 
@@ -111,21 +114,27 @@ const searchResults = [];
 */
 
 function performSearch (searchInput, names) {
-   let pagination = document.getElementsByClassName('pagination');
+   const pagination = document.getElementsByClassName('pagination');
    pageDiv.removeChild(pagination[0]);
    while (searchResults.length > 0) {
       searchResults.pop();
    }
+   if (pageDiv.lastElementChild === noResults) {
+      pageDiv.removeChild(noResults);
+   }
    if (searchInput.value.length !== 0) {
       for (let i = 0; i < names.length; i ++) { 
-         let fullName = names[i].querySelector('h3');    
+         const fullName = names[i].querySelector('h3');    
          if (fullName.textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
             names[i].style.display = 'block';
             searchResults.push(names[i]);
          } else {
-            names[i].style.display = 'none';
+            names[i].style.display = 'none'; 
          }  
       }
+      if (searchResults.length === 0) {  
+         pageDiv.appendChild(noResults);
+      } 
       appendPageLinks(searchResults, studentsPerPage);
       showPage(searchResults, 1);
    } else {
