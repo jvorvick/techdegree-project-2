@@ -106,7 +106,7 @@ searchDiv.appendChild(submit);
 const searchResults = [];
 const noResults = document.createElement('div');
    noResults.className = 'no-results';
-   noResults.innerHTML = '<h1>' + 'No Results' + '</h1>';
+   noResults.innerHTML = 'No Results';
 
 // Search bar functionality
 
