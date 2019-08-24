@@ -49,6 +49,9 @@ function appendPageLinks (list, page) {
    for (let i = 0; i < list.length / page; i++) {
       const li = document.createElement('li');
       const a = document.createElement('a');
+      if (i === 0) {
+         a.className = 'active';
+      }
       ul.appendChild(li);
       li.appendChild(a);
       a.href = '#';
