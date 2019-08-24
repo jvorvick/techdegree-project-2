@@ -10,6 +10,7 @@ const studentsPerPage = 10;
    Ten students will be displayed per page.
    Students not belonging to the given page will be hidden. 
 */
+
 function showPage(list, page) {  
    const startIndex = (page * 10) - 10;
    const endIndex = (page * 10) - 1;
@@ -31,12 +32,13 @@ showPage(students, 1);
    The ul is appended to the div.
    Each student, in the form of an li, is appended to the ul in a loop.
    Each li has a numbered hyperlink attached, representing each page number.
-   An event listener checks for a click on any of the ul's child lis. 
-   Upon a click event, the clicked lis will obtain a class of "active."
-   In addition, all other lis have their className set to null to ensure they are not "active."
+   An event listener checks for a click on any of the ul's child li's. 
+   Upon a click event, the clicked li's will obtain a class of "active."
+   In addition, all other li's have their className set to null to ensure they are not "active."
    The showPage function is called immediately afterward; the corresponding arguments are passed to ensure the clicked page is displayed.
    These arguments differ depending on whether the appendPageLinks function was called in response to a search or not.
 */
+
 function appendPageLinks (list, page) {
    const div = document.createElement('div');
    div.className = 'pagination';
@@ -92,7 +94,11 @@ pageHeader.appendChild(searchDiv);
 searchDiv.appendChild(search);
 searchDiv.appendChild(submit);
 
-// An empty array is declared to store the list items that match a user's search.
+/* 
+   An empty array is declared to store the list items that match a user's search.
+   A variable storing a div is created to be used later for empty searches.
+   The new div is given a class name and an HTML string added, saying "No results".
+*/
 
 const searchResults = [];
 const noResults = document.createElement('div');
@@ -104,10 +110,12 @@ const noResults = document.createElement('div');
 /*
    When a search triggers the performSearch function, two arguments are accepted.
    All numbered paged buttons are removed and and all contents of the searchResults variable are emptied (in case of previous searches).
-   If there there is anything in the search bar, the students are iterated through. 
+   If there is a "No results" message on the page, it is removed.
+   If there is anything in the search bar, the students are iterated through. 
    Any students whose name matches or partially matches the search are displayed and added to the searchResults array.
    Any who do not match or partially match the search are not displayed.
-   When the iteration is complete, appendPageLinks and showPage are called and passed the appropriate arguments.
+   When the iteration is complete, if the searchResults array is empty in addition to the search bar being empty, the noResults variable is appended to pageDiv.
+   In addition, appendPageLinks and showPage are called and passed the appropriate arguments.
    If there was nothing in the search bar when the performSearch function was called, the same two functions are still called.
    However, in this case appendPageLinks is passed the full list of students instead of the ones stored in the searchResults array.
    This ensures that all students are shown as they were when the webpage was initially loaded, should the contents of the search bar be deleted.
